@@ -1,0 +1,39 @@
+import unittest
+import math
+from shape_classes import Circle, Rectangle, Square
+
+class TestCircle(unittest.TestCase):
+    def test_area(self):
+        circle = Circle(1)
+        self.assertAlmostEqual(circle.area(), math.pi)
+
+    def test_perimeter(self):
+        circle = Circle(1)
+        self.assertAlmostEqual(circle.perimeter(), 2 * math.pi)
+
+class TestRectangle(unittest.TestCase):
+    def test_area(self):
+        rect = Rectangle(4, 5)
+        self.assertEqual(rect.area(), 20)
+
+    def test_perimeter(self):
+        rect = Rectangle(4, 5)
+        self.assertEqual(rect.perimeter(), 18)
+
+class TestSquare(unittest.TestCase):
+    def test_area(self):
+        sq = Square(3)
+        self.assertEqual(sq.area(), 9)
+
+    def test_perimeter(self):
+        sq = Square(3)
+        self.assertEqual(sq.perimeter(), 12)
+
+    def test_square_is_rectangle(self):
+        sq = Square(4)
+        self.assertIsInstance(sq, Rectangle)
+        self.assertEqual(sq.width, 4)
+        self.assertEqual(sq.height, 4)
+
+if __name__ == '__main__':
+    unittest.main()

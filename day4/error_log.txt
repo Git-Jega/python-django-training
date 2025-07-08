@@ -1,0 +1,2 @@
+[2025-07-08 18:26:41] ZeroDivisionError: division by zero
+[2025-07-08 18:26:44] ValueError: invalid literal for int() with base 10: 'utdu'
