@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>List of books in DB</h1>
+<ul>
+  {% for book in books %}
+    <li>{{book.title}} - {{book.author}}</li>
+  {% endfor %}
+</ul>
+<form action="add">
+  Enter 1st number :<input type="text" name="num1" />
+  Enter 2nd number :<input type="text" name="num2" />
+  <input type="submit" />
+</form>
+{% endblock %}
