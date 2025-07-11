@@ -6,9 +6,10 @@
     <li>{{book.title}} - {{book.author}}</li>
   {% endfor %}
 </ul>
-<form action="add">
-  Enter 1st number :<input type="text" name="num1" />
-  Enter 2nd number :<input type="text" name="num2" />
-  <input type="submit" />
-</form>
+<!-- <form action="add">
+  Enter 1st number : <input type="text" name="num1" /><br /><br />
+  Enter 2nd number : <input type="text" name="num2" /><br /><br />
+  <input type="submit" /><br />
+</form> -->
+<a href="{% url 'add_book' %}">Add to Book List</a>
 {% endblock %}

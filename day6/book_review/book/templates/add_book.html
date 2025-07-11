@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <form method="post">
+        <h2>Add a New Book</h2>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div id="add-form-footer">
+          <button type="submit">Add Book</button>
+          <a href="{% url 'book' %}">Back to Book List</a>
+        </div>
+    </form>
+    <br>
+{% endblock %}
