@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<form method="POST">
+  {% csrf_token %}
+
+  <label for="{{ form.content.id_for_label }}">Review:</label><br>
+  {{ form.content }}
+  {% if form.content.errors %}
+    <div class="error">{{ form.content.errors.0 }}</div>
+  {% endif %}
+
+  <br><br>
+
+  <label>Rating:</label>
+  <div class="star-rating">
+    {% for i in "54321" %}
+      <input type="radio" name="rating" id="star{{ i }}" value="{{ i }}"
+             {% if form.rating.value == i %} checked {% endif %}>
+      <label for="star{{ i }}">&#9733;</label>
+    {% endfor %}
+  </div>
+  {% if form.rating.errors %}
+    <div class="error">{{ form.rating.errors.0 }}</div>
+  {% endif %}
+
+  <br>
+  <button type="submit">Submit Review</button>
+</form>
+
+
+{% endblock %}

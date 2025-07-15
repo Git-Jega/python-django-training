@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Book Review</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'book/style.css' %}">
+  </head>
+  <body>
+    {% if messages %}
+      <div class="django-messages-container">
+        {% for message in messages %}
+          <div class="django-message {{ message.tags }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% block content %}
+    {% endblock %}
+    <script>
+      setTimeout(() => {
+        document.querySelectorAll('.django-message').forEach(msg => {
+          msg.style.display = 'none';
+        });
+      }, 5000);
+    </script>
+  </body>
+</html>

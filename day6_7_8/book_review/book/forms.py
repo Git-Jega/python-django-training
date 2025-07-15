@@ -1,5 +1,5 @@
 from django import forms
-from .models import Book
+from .models import Book,Review
 
 class BookForm(forms.ModelForm):
     class Meta:
@@ -25,3 +25,27 @@ class BookForm(forms.ModelForm):
         if copies is not None and copies < 0:
             raise forms.ValidationError("Copies cannot be negative.")
         return copies
+
+class Review_Form(forms.ModelForm):
+    rating = forms.ChoiceField(
+        choices=[(i, str(i)) for i in range(1, 6)],
+        widget=forms.RadioSelect,
+        required=True,
+        label='Rating'
+    )
+
+    class Meta:
+        model = Review
+        fields = ['content', 'rating']
+
+    def clean_content(self):
+        content = self.cleaned_data.get('content')
+        if not content:
+            raise forms.ValidationError("Review is required.")
+        return content
+
+    def clean_rating(self):
+        rating = self.cleaned_data.get('rating')
+        if not rating:
+            raise forms.ValidationError("Rating is required.")
+        return rating

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<form method="post">
+  <h2>Edit {{ book.title }}</h2>
+  {% csrf_token %}
+  {{ form.as_p }}
+  <div id="edit-form-footer">
+    <button type="submit">Edit Book</button>
+    <a href="{% url 'book' %}">Back to Book List</a>
+  </div>
+</form>
+{% endblock %}
