@@ -3,7 +3,8 @@
 {% block content %}
 <form method="POST">
   {% csrf_token %}
-  <h2 style="margin-top: 0px; justify-self: center;">Review for  {{ book.title }}</h2>
+  <h2 style="margin-top: 0px; justify-self: center;">Edit Review for {{ review.book.title }}</h2>
+
   <label for="{{ form.content.id_for_label }}">Review:</label><br>
   {{ form.content }}
   {% if form.content.errors %}
@@ -16,7 +17,7 @@
   <div class="star-rating">
     {% for i in "54321" %}
       <input type="radio" name="rating" id="star{{ i }}" value="{{ i }}"
-             {% if form.rating.value == i %} checked {% endif %}>
+             {% if form.rating.value|stringformat:"s" == i %} checked {% endif %}>
       <label for="star{{ i }}">&#9733;</label>
     {% endfor %}
   </div>
@@ -26,10 +27,8 @@
 
   <br>
   <div id="edit-form-footer">
-    <button type="submit">Submit Review</button>
-    <a href="{% url 'book' %}">Back to Book List</a>
+    <button type="submit">Save Changes</button>
+    <a href="{% url 'list_review' review.book.id %}">Back to Your Reviews</a>
   </div>
 </form>
-
-
 {% endblock %}

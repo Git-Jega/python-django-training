@@ -1,6 +1,7 @@
 body {
     font-family: 'Segoe UI', sans-serif;
     background-color: #f4f4f4;
+    margin: 0;
 }
 
 #add-form-footer{
@@ -111,7 +112,7 @@ button[type="submit"]:hover {
 
 .django-messages-container {
     position: fixed;
-    top: 20px;
+    top: 80px;
     right: 20px;
     z-index: 9999;
     display: flex;
@@ -151,4 +152,84 @@ button[type="submit"]:hover {
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
     to   { opacity: 1; transform: translateY(0); }
+}
+
+#signup_footer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+}
+
+nav {
+    display: flex;
+    position: sticky;
+    top: 0;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 5px 10px;
+    height: 50px;
+}
+
+.nav-left{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.nav-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.nav-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+nav a {
+    color: white;
+    margin-inline: 15px;
+    text-decoration: none;
+}
+nav p {
+    color: white;
+    margin-inline: 15px;
+    text-decoration: none;
+}
+nav a:hover {
+    text-decoration: underline;
+}
+
+#logout-form button {
+    border: none;
+    color: white;
+    cursor: pointer;
+    font: inherit;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+.user-status {
+  position: fixed;
+  top: 60;
+  right: 0;
+  float: right;
+  background-color: #f9f9f9;
+  padding: 6px 12px;
+  margin: 0;
+  font-size: 0.9em;
+  color: #555;
+  border-bottom-left-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+  z-index: 1000;
 }

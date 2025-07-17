@@ -1,28 +1,62 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>List of books in DB</h1>
+<h1>
+  {% if user.is_authenticated and user.is_superuser %}
+    List of books in DB
+  {% else %}
+    List of my books
+  {% endif %}
+</h1>
 <ul style="list-style: none; padding: 0; margin: 0;">
   {% for book in books %}
     <li style="padding: 0; margin: 0; height: auto; line-height: 1.5;">
       {{ book.title }} - {{ book.author }}
       {% if not user.is_superuser %}
         <a href="{% url 'review_book' book.id %}">[Add Review]</a>
-      {% else %}
-        <a href="{% url 'edit_book' book.id %}">[Edit]</a>
-        <form method="POST" action="{% url 'delete_book' book.id %}" style="display:inline; margin: 0; padding: 0;">
+        <a href="{% url 'list_review' book.id %}">[List Review]</a>
+        <form method="POST" action="{% url 'return_book' book.id %}" style="display:inline; margin: 0; padding: 0;box-shadow: none;">
           {% csrf_token %}
           <button type="submit"
-                  onclick="return confirm('Are you sure you want to delete this book?')"
-                  style="background:none;background-color: #f4f4f4; border:none;box-shadow: none; color:blue; text-decoration:underline; cursor:pointer; padding:0; margin: 0; font:inherit;">
-              [Delete]
+                  onclick="return confirm('Are you sure you want to return this book?')"
+                  style="background:none;background-color: #f4f4f4; border:none;box-shadow: none; color:blue; text-decoration:underline; cursor:pointer; padding:0; margin: 0; font:inherit;text-shadow: none;">
+              [Return Book]
           </button>
         </form>
+      {% else %}
+        <span style="font-weight:500">**** Number of copies available : {{ book.copies }} ****</span>
+        {% if book.copies != 0 %}
+          <a href="{% url 'edit_book' book.id %}">[Edit]</a>
+          <form method="POST" action="{% url 'delete_book' book.id %}" style="display:inline; margin: 0; padding: 0;box-shadow: none;background-color: #f4f4f4;">
+            {% csrf_token %}
+            <button type="submit"
+                    onclick="return confirm('Are you sure you want to delete this book?')"
+                    style="background:none;background-color: #f4f4f4; border:none;box-shadow: none; color:blue; text-decoration:underline; cursor:pointer; padding:0; margin: 0; font:inherit;text-shadow: none;">
+                [Delete]
+            </button>
+            <a href="{% url 'borrowers_list' book.id %}" style="background:none;background-color: #f4f4f4; border:none;box-shadow: none; color:blue; text-decoration:underline; cursor:pointer; padding:0; margin: 0; font:inherit;text-shadow: none;">[Borrowers List]</a>
+          </form>
+        {% else %}
+          {% if user.is_superuser %}
+            <form method="POST" action="{% url 'restock_book' book.id %}" style="display:inline; margin: 0; padding: 0; box-shadow: none;">
+              {% csrf_token %}
+              <input type="number" name="copies" min="1" placeholder="Qty"
+                    style="width: 50px; font-size: 12px; padding: 4px 6px; height: 20px; vertical-align: middle;">
+              <button type="submit"
+                      style="font-size: 12px; padding: 4px 12px; height: 28px; vertical-align: middle;">
+                Restock
+              </button>
+            </form>
+
+          {% endif %}
+
+        <a style="color: gray;" aria-disabled="true">BOOK NOT AVAILABLE</a>
+        {% endif %}
       {% endif %}
     </li>
   {% endfor %}
 </ul>
 
 {% if user.is_superuser %}
-  <a href="{% url 'add_book' %}">Add a Book</a>
+  <a href="{% url 'add_book' %}">Add a new Book</a>
 {% endif %}
 {% endblock %}

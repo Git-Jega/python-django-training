@@ -3,7 +3,12 @@
 {% block content %}
 <form method="post">
   {% csrf_token %}
+  <h2 style="margin-top: 0px; justify-self: center;">Login</h2>
   {{form}}
-  <button type="submit">Submit</button>
+  <div id = "signup_footer">
+    <button type="submit">Submit</button>
+    <span>Don't have an acccount<br/>
+    Click <a href="{% url 'authView' %}">here</a> to signup</span>
+  </div>
 </form>
 {% endblock %}

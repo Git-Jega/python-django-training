@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Borrow a Book</h2>
+
+{% if borrow_success %}
+    <p style="color: green;">You successfully borrowed "{{ selected_book.title }}"!</p>
+{% elif error_message %}
+    <p style="color: red;">{{ error_message }}</p>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    <label for="book">Choose a book to borrow:</label>
+    <select name="book_id" id="book">
+        {% for book in books %}
+            <option value="{{ book.id }}">
+                {{ book.title }} by {{ book.author }} {% if book.copies == 0 %}(Unavailable){% endif %}
+            </option>
+        {% endfor %}
+    </select>
+    <button type="submit">Borrow</button>
+</form>
+
+<hr>
+
+<h3>Available Books</h3>
+<ul>
+    {% for book in books %}
+        <li>
+            <strong>{{ book.title }}</strong> by {{ book.author }}
+        </li>
+    {% empty %}
+        <li>No books available.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

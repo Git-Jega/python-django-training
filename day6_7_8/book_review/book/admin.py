@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Book,Author,Review
+from .models import Book,Author,Review,BorrowedBook
 
 admin.site.site_header = "Custom Admin Project"
 
@@ -51,6 +51,9 @@ class ReviewAdmin(admin.ModelAdmin):
   search_fields = ("user__username",)
   list_display_links = ("book","user","created_at")
 
+@admin.register(BorrowedBook)
+class BorrowAdmin(admin.ModelAdmin):
+  pass
 # Register your models here.
 # admin.site.register(Book,BookAdmin)
 # admin.site.register(Author)

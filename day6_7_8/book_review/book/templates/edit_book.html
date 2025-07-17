@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 <form method="post">
-  <h2>Edit {{ book.title }}</h2>
+  <h2 style="margin-top: 0px; justify-self: center;">Edit {{ book.title }}</h2>
   {% csrf_token %}
   {{ form.as_p }}
   <div id="edit-form-footer">

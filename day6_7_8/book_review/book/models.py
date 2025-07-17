@@ -30,7 +30,7 @@ class Book(models.Model):
     
     @admin.display(boolean=True,description="Book Availabilty")
     def is_available(self):
-        return True if self.copies>0 else False
+        return self.copies > 0
 
 class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -43,3 +43,11 @@ class Review(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return f"Review by {self.user.username}"
+
+class BorrowedBook(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    borrowed_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} borrowed {self.book.title}"

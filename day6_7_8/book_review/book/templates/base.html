@@ -6,17 +6,49 @@
     <link rel="stylesheet" href="{% static 'book/style.css' %}">
   </head>
   <body>
-    {% if messages %}
-      <div class="django-messages-container">
-        {% for message in messages %}
-          <div class="django-message {{ message.tags }}">
-            {{ message }}
-          </div>
-        {% endfor %}
+    <nav>
+      {% if request.path != '/' %}
+        <a href="{% url 'book' %}" style="color: #ccc; align-self: center;" class="nav-left">
+          {% if user.is_authenticated and user.is_superuser %}
+            Back to Book List
+          {% else %}
+            Back to My Books
+          {% endif %}
+        </a>
+      {% else %}
+        <span class="nav-left"></span>
+      {% endif %}
+      <p class="nav-center">Welcome to Book Review App</p>
+      {% if user.is_authenticated %}
+      <div class="messages nav-right" style="display: flex; gap: 12px; align-items: center;">
+        {% if not user.is_superuser %}
+          <a href="{% url 'borrow_book' %}" class="nav-link">Borrow Books</a>
+        {% endif %}
+        <form id="logout-form" method="POST" action="{% url 'logout' %}" style="background-color:transparent;margin: 0;padding: 0;">
+          {% csrf_token %}
+          <button type="submit">Logout</button>
+        </form>
       </div>
+      {% endif %}
+    </nav>
+    {% if user.is_authenticated %}
+    <div class="user-status">
+      Logged in as <strong>{{ user.username }}</strong>
+    </div>
     {% endif %}
-    {% block content %}
-    {% endblock %}
+    <div style="margin: 8px">
+      {% if messages %}
+        <div class="django-messages-container">
+          {% for message in messages %}
+            <div class="django-message {{ message.tags }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+      {% block content %}
+      {% endblock %}
+    </div>
     <script>
       setTimeout(() => {
         document.querySelectorAll('.django-message').forEach(msg => {

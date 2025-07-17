@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Borrowers of "{{ book.title }}"</h2>
+
+  {% if borrowers %}
+    <ul>
+      {% for entry in borrowers %}
+        <li>
+          {{ entry.user.username }} –
+          Borrowed on {{ entry.borrowed_at|date:"Y-m-d H:i" }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No users have borrowed this book yet.</p>
+  {% endif %}
+{% endblock %}
